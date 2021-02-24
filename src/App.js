@@ -1,6 +1,11 @@
+// Import of global style
+
+import GlobalStyle from "./Styles/GlobalStyle";
+
 function App() {
   return (
-    <div className="App">
+    <div>
+      <GlobalStyle />
       <h1>Slack Clone</h1>
     </div>
   );
