@@ -32,3 +32,18 @@ export const sidebarItems = [
     text: "More",
   },
 ];
+
+export const channels = [
+  {
+    name: "Welcome",
+  },
+  {
+    name: "Announcements",
+  },
+  {
+    name: "General",
+  },
+  {
+    name: "Q&As",
+  },
+];

@@ -1,5 +1,5 @@
 // Import data
-import { sidebarItems } from "../data/SidebarData";
+import { sidebarItems, channels } from "../data/SidebarData";
 
 // Imports of icons
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
@@ -31,8 +31,9 @@ const Sidebar = () => {
           <AddIcon />
         </NewChannelContainer>
         <ChannelsList>
-          <Channel># Channel 1</Channel>
-          <Channel># Channel 2</Channel>
+          {channels.map((channel) => (
+            <Channel># {channel.name}</Channel>
+          ))}
         </ChannelsList>
       </ChannelsContainer>
     </Container>
