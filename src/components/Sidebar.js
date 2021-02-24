@@ -1,4 +1,5 @@
 // Import data
+import db from "../firebase";
 import { sidebarItems } from "../data/SidebarData";
 
 // Imports of icons
@@ -9,6 +10,15 @@ import AddIcon from "@material-ui/icons/Add";
 import styled from "styled-components";
 
 const Sidebar = ({ rooms }) => {
+  const addChannel = () => {
+    const promptName = prompt("Enter channel name");
+    if (promptName) {
+      db.collection("rooms").add({
+        name: promptName,
+      });
+    }
+  };
+
   return (
     <Container>
       <WorkSpaceContainer>
@@ -26,7 +36,7 @@ const Sidebar = ({ rooms }) => {
         ))}
       </MainChannels>
       <ChannelsContainer>
-        <NewChannelContainer>
+        <NewChannelContainer onClick={addChannel}>
           <div>Channels</div>
           <AddIcon />
         </NewChannelContainer>
@@ -96,6 +106,7 @@ const NewChannelContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0 12px 0 19px;
+  cursor: pointer;
 `;
 
 const ChannelsList = styled.div``;
