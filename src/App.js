@@ -1,5 +1,11 @@
+// Imports from react
+import { useState, useEffect } from "react";
+
 // Imports from react router dom
 import { Route, Switch } from "react-router-dom";
+
+// Import DB
+import db from "./firebase";
 
 // Imports of components
 import Header from "./components/Header";
@@ -12,13 +18,31 @@ import styled from "styled-components";
 import GlobalStyle from "./GlobalStyle";
 
 const App = () => {
+  const [rooms, setRooms] = useState([]);
+
+  const getChannels = () => {
+    db.collection("rooms").onSnapshot((snapshot) => {
+      setRooms(
+        snapshot.docs.map((doc) => {
+          return { id: doc.id, name: doc.data().name };
+        })
+      );
+    });
+  };
+
+  useEffect(() => {
+    getChannels();
+  }, []);
+
+  console.log(rooms);
+
   return (
     <div>
       <GlobalStyle />
       <Container>
         <Header />
         <Main>
-          <Sidebar />
+          <Sidebar rooms={rooms} />
           <Switch>
             <Route path="/" exact>
               <Login />

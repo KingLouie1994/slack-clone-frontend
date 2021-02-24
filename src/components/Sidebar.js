@@ -1,5 +1,5 @@
 // Import data
-import { sidebarItems, channels } from "../data/SidebarData";
+import { sidebarItems } from "../data/SidebarData";
 
 // Imports of icons
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
@@ -8,7 +8,7 @@ import AddIcon from "@material-ui/icons/Add";
 // Imports for styling
 import styled from "styled-components";
 
-const Sidebar = () => {
+const Sidebar = ({ rooms }) => {
   return (
     <Container>
       <WorkSpaceContainer>
@@ -19,7 +19,7 @@ const Sidebar = () => {
       </WorkSpaceContainer>
       <MainChannels>
         {sidebarItems.map((item) => (
-          <MainChannelItem>
+          <MainChannelItem key={item.text}>
             {item.icon}
             {item.text}
           </MainChannelItem>
@@ -31,8 +31,8 @@ const Sidebar = () => {
           <AddIcon />
         </NewChannelContainer>
         <ChannelsList>
-          {channels.map((channel) => (
-            <Channel># {channel.name}</Channel>
+          {rooms.map((room) => (
+            <Channel key={room.name}># {room.name}</Channel>
           ))}
         </ChannelsList>
       </ChannelsContainer>

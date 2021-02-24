@@ -32,25 +32,3 @@ export const sidebarItems = [
     text: "More",
   },
 ];
-
-export const channels = [
-  {
-    name: "Welcome",
-    desciption: "Welcome messages for new members of our slack channel",
-  },
-  {
-    name: "Announcements",
-    desciption:
-      "Official company-wide announcements about everything important",
-  },
-  {
-    name: "General",
-    desciption:
-      "Just talk about everything that matters to you and you are interested in",
-  },
-  {
-    name: "Q&As",
-    desciption:
-      "Ask questions and help people with everythin regarging to work",
-  },
-];
