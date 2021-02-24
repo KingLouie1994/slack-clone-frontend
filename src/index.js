@@ -6,10 +6,15 @@ import reportWebVitals from "./reportWebVitals";
 // Imports from react router dom
 import { BrowserRouter as Router } from "react-router-dom";
 
+// Imports of ContextAPI Providers
+import { DarkModeProvider } from "./darkmode/darkModeContext";
+
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <App />
+      <DarkModeProvider>
+        <App />
+      </DarkModeProvider>
     </Router>
   </React.StrictMode>,
   document.getElementById("root")
