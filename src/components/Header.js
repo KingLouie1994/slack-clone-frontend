@@ -27,12 +27,15 @@ const Header = () => {
   );
 };
 
+// Styled components
 const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
   background: #350d36;
   color: white;
+  box-shadow: 0 1px 0 0 rgb(255 255 255 / 10%);
 `;
 
 const Main = styled.div`
