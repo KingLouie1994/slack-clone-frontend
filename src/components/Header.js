@@ -1,13 +1,32 @@
+// Imports from react
+import { useContext } from "react";
+import { DarkModeContext } from "../darkmode/darkModeContext";
+
 // Imports of icons
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
+import WbSunnyOutlinedIcon from "@material-ui/icons/WbSunnyOutlined";
+import NightsStayOutlinedIcon from "@material-ui/icons/NightsStayOutlined";
 
 // Imports for styling
 import styled from "styled-components";
 
 const Header = () => {
+  const [darkMode, setDarkMode] = useContext(DarkModeContext);
+
+  const switchDarkMode = (e) => {
+    e.preventDefault();
+    setDarkMode(!darkMode);
+  };
   return (
     <Container>
+      <DarkModeHandler>
+        {darkMode ? (
+          <WbSunnyOutlinedIcon onClick={switchDarkMode} />
+        ) : (
+          <NightsStayOutlinedIcon onClick={switchDarkMode} />
+        )}
+      </DarkModeHandler>
       <Main>
         <AccessTimeIcon />
         <SearchContainer>
@@ -36,6 +55,15 @@ const Container = styled.div`
   background: #350d36;
   color: white;
   box-shadow: 0 1px 0 0 rgb(255 255 255 / 10%);
+`;
+
+const DarkModeHandler = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 16px;
+  cursor: pointer;
 `;
 
 const Main = styled.div`
