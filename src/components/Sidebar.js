@@ -1,5 +1,6 @@
 // Import data
-import { sidebarItems, channels } from "../data/SidebarData";
+import db from "../firebase";
+import { sidebarItems } from "../data/SidebarData";
 
 // Imports of icons
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
@@ -8,7 +9,16 @@ import AddIcon from "@material-ui/icons/Add";
 // Imports for styling
 import styled from "styled-components";
 
-const Sidebar = () => {
+const Sidebar = ({ rooms }) => {
+  const addChannel = () => {
+    const promptName = prompt("Enter channel name");
+    if (promptName) {
+      db.collection("rooms").add({
+        name: promptName,
+      });
+    }
+  };
+
   return (
     <Container>
       <WorkSpaceContainer>
@@ -19,20 +29,20 @@ const Sidebar = () => {
       </WorkSpaceContainer>
       <MainChannels>
         {sidebarItems.map((item) => (
-          <MainChannelItem>
+          <MainChannelItem key={item.text}>
             {item.icon}
             {item.text}
           </MainChannelItem>
         ))}
       </MainChannels>
       <ChannelsContainer>
-        <NewChannelContainer>
+        <NewChannelContainer onClick={addChannel}>
           <div>Channels</div>
           <AddIcon />
         </NewChannelContainer>
         <ChannelsList>
-          {channels.map((channel) => (
-            <Channel># {channel.name}</Channel>
+          {rooms.map((room) => (
+            <Channel key={room.name}># {room.name}</Channel>
           ))}
         </ChannelsList>
       </ChannelsContainer>
@@ -96,6 +106,7 @@ const NewChannelContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0 12px 0 19px;
+  cursor: pointer;
 `;
 
 const ChannelsList = styled.div``;
