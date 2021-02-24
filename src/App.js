@@ -9,7 +9,7 @@ import Chat from "./components/Chat";
 
 // Imports for styling
 import styled from "styled-components";
-import GlobalStyle from "./styles/GlobalStyle";
+import GlobalStyle from "./GlobalStyle";
 
 const App = () => {
   return (
