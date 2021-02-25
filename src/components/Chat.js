@@ -1,10 +1,16 @@
 // Imports from react
-import React, { useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { DarkModeContext } from "../darkmode/darkModeContext";
+
+// Imports from react router dom
+import { useParams } from "react-router-dom";
 
 // Imports of components
 import ChatInput from "./ChatInput";
 import ChatMessage from "./ChatMessage";
+
+// Import of db
+import db from "../firebase";
 
 // Imports of icons
 import StarBorderIcon from "@material-ui/icons/StarBorder";
@@ -16,6 +22,36 @@ import styled from "styled-components";
 const Chat = () => {
   const [darkMode] = useContext(DarkModeContext);
 
+  const [channel, setChannel] = useState();
+  const [messages, setMessages] = useState();
+
+  let { id } = useParams();
+
+  const getChannel = () => {
+    db.collection("rooms")
+      .doc(id)
+      .onSnapshot((snapshot) => {
+        setChannel(snapshot.data());
+      });
+  };
+
+  const getMessages = () => {
+    db.collection("rooms")
+      .doc(id)
+      .collection("messages")
+      .orderBy("timestamp", "asc")
+      .onSnapshot((snapshot) => {
+        let messages = snapshot.docs.map((doc) => doc.data());
+        setMessages(messages);
+      });
+  };
+
+  useEffect(() => {
+    getChannel();
+    getMessages();
+    console.log(messages);
+  }, [id]);
+
   return (
     <React.Fragment>
       {darkMode ? (
@@ -23,7 +59,7 @@ const Chat = () => {
           <HeaderDarkMode>
             <Channel>
               <ChannelName>
-                <h3># Welcome</h3>
+                {channel ? <h3># {channel.name}</h3> : null}
                 <StarBorderIcon />
               </ChannelName>
               <ChannelInfoDarkMode>
@@ -36,7 +72,17 @@ const Chat = () => {
             </ChannelDetailsDarkMode>
           </HeaderDarkMode>
           <MessageContainer>
-            <ChatMessage />
+            {messages &&
+              messages.length > 0 &&
+              messages.map((msg) => (
+                <ChatMessage
+                  key={msg.id}
+                  text={msg.text}
+                  name={msg.user}
+                  image={msg.userImage}
+                  timestamp={msg.timestamp}
+                />
+              ))}
           </MessageContainer>
           <ChatInput></ChatInput>
         </ContainerDarkMode>
@@ -45,7 +91,7 @@ const Chat = () => {
           <Header>
             <Channel>
               <ChannelName>
-                <h3># Welcome</h3>
+                {channel ? <h3># {channel.name}</h3> : null}
                 <StarBorderIcon />
               </ChannelName>
               <ChannelInfo>
@@ -58,7 +104,17 @@ const Chat = () => {
             </ChannelDetails>
           </Header>
           <MessageContainer>
-            <ChatMessage />
+            {messages &&
+              messages.length > 0 &&
+              messages.map((msg) => (
+                <ChatMessage
+                  key={msg.id}
+                  text={msg.text}
+                  name={msg.user}
+                  image={msg.userImage}
+                  timestamp={msg.timestamp}
+                />
+              ))}
           </MessageContainer>
           <ChatInput />
         </Container>

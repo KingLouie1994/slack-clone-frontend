@@ -4,8 +4,11 @@ import { useState, useEffect } from "react";
 // Imports from react router dom
 import { Route, Switch } from "react-router-dom";
 
-// Import DB
+// Import of db
 import db from "./firebase";
+
+// Imports from firebase
+import { auth } from "./firebase";
 
 // Imports of components
 import Header from "./components/Header";
@@ -18,6 +21,7 @@ import styled from "styled-components";
 import GlobalStyle from "./GlobalStyle";
 
 const App = () => {
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [rooms, setRooms] = useState([]);
 
   const getChannels = () => {
@@ -30,6 +34,17 @@ const App = () => {
     });
   };
 
+  const signOut = () => {
+    auth
+      .signOut()
+      .then(() => {
+        localStorage.removeItem("user");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     getChannels();
   }, []);
@@ -37,20 +52,24 @@ const App = () => {
   return (
     <div>
       <GlobalStyle />
-      <Container>
-        <Header />
-        <Main>
-          <Sidebar rooms={rooms} />
-          <Switch>
-            <Route path="/" exact>
-              <Login />
-            </Route>
-            <Route path="/room" exact>
-              <Chat />
-            </Route>
-          </Switch>
-        </Main>
-      </Container>
+      {!user ? (
+        <Login setUser={setUser} />
+      ) : (
+        <Container>
+          <Header user={user} signOut={signOut} />
+          <Main>
+            <Sidebar rooms={rooms} />
+            <Switch>
+              <Route path="/room/:id">
+                <Chat />
+              </Route>
+              <Route path="/" exact>
+                Select or create Channel
+              </Route>
+            </Switch>
+          </Main>
+        </Container>
+      )}
     </div>
   );
 };

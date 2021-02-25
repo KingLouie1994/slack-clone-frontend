@@ -5,39 +5,38 @@ import { DarkModeContext } from "../darkmode/darkModeContext";
 // Imports for styling
 import styled from "styled-components";
 
-const ChatMessage = () => {
+const ChatMessage = ({ text, name, image, timestamp }) => {
   const [darkMode] = useContext(DarkModeContext);
-
   return (
     <React.Fragment>
       {darkMode ? (
         <ContainerDarkMode>
           <UserAvatar>
-            <img
-              src="https://randomuser.me/api/portraits/women/54.jpg"
-              alt="profile"
-            />
+            {image ? <img src={image} alt="profile" /> : null}
           </UserAvatar>
           <MessageContent>
             <NameDarkMode>
-              Amanda Curasao <span>2/25/2021 08:52:52 AM</span>
+              {name ? <p>{name}</p> : null}
+              {timestamp && (
+                <span>{new Date(timestamp.toDate()).toUTCString()}</span>
+              )}
             </NameDarkMode>
-            <Text>I love this clone so much!</Text>
+            {text ? <Text>{text}</Text> : null}
           </MessageContent>
         </ContainerDarkMode>
       ) : (
         <Container>
           <UserAvatar>
-            <img
-              src="https://randomuser.me/api/portraits/women/54.jpg"
-              alt="profile"
-            />
+            {image ? <img src={image} alt="profile" /> : null}
           </UserAvatar>
           <MessageContent>
             <Name>
-              Amanda Curasao <span>2/25/2021 08:52:52 AM</span>
+              {name ? <p>{name}</p> : null}
+              {timestamp && (
+                <span>{new Date(timestamp.toDate()).toUTCString()}</span>
+              )}
             </Name>
-            <Text>I love this clone so much!</Text>
+            {text ? <Text>{text}</Text> : null}
           </MessageContent>
         </Container>
       )}
@@ -83,6 +82,8 @@ const MessageContent = styled.div`
 `;
 
 const Name = styled.span`
+  display: flex;
+  align-items: center;
   font-weight: 900;
   font-size: 16px;
   span {
@@ -94,6 +95,8 @@ const Name = styled.span`
 `;
 
 const NameDarkMode = styled.span`
+  display: flex;
+  align-items: center;
   font-weight: 900;
   font-size: 16px;
   span {

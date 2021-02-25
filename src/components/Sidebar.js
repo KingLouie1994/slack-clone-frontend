@@ -1,3 +1,6 @@
+// Imports from react router dom
+import { useHistory } from "react-router-dom";
+
 // Import data
 import db from "../firebase";
 import { sidebarItems } from "../data/SidebarData";
@@ -10,12 +13,20 @@ import AddIcon from "@material-ui/icons/Add";
 import styled from "styled-components";
 
 const Sidebar = ({ rooms }) => {
+  const history = useHistory();
+
   const addChannel = () => {
     const promptName = prompt("Enter channel name");
     if (promptName) {
       db.collection("rooms").add({
         name: promptName,
       });
+    }
+  };
+
+  const goToChannel = (id) => {
+    if (id) {
+      history.push(`/room/${id}`);
     }
   };
 
@@ -42,7 +53,9 @@ const Sidebar = ({ rooms }) => {
         </NewChannelContainer>
         <ChannelsList>
           {rooms.map((room) => (
-            <Channel key={room.name}># {room.name}</Channel>
+            <Channel key={room.name} onClick={() => goToChannel(room.id)}>
+              # {room.name}
+            </Channel>
           ))}
         </ChannelsList>
       </ChannelsContainer>

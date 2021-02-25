@@ -11,7 +11,7 @@ import NightsStayOutlinedIcon from "@material-ui/icons/NightsStayOutlined";
 // Imports for styling
 import styled from "styled-components";
 
-const Header = () => {
+const Header = ({ user, signOut }) => {
   const [darkMode, setDarkMode] = useContext(DarkModeContext);
 
   const switchDarkMode = (e) => {
@@ -37,9 +37,12 @@ const Header = () => {
         <HelpOutlineIcon />
       </Main>
       <UserContainer>
-        <Name>Luis Schekerka</Name>
-        <UserImage>
-          <img src="https://i.imgur.com/6VBx3io.png" alt="Profile" />
+        <Name>{user.name}</Name>
+        <UserImage onClick={signOut}>
+          <img
+            src={user.photo ? user.photo : "​https://i.imgur.com/6VBx3io.png"}
+            alt="Profile"
+          />
         </UserImage>
       </UserContainer>
     </Container>
@@ -113,7 +116,7 @@ const UserImage = styled.div`
   height: 28px;
   border: 2px solid white;
   border-radius: 3px;
-
+  cursor: pointer;
   img {
     width: 100%;
   }
