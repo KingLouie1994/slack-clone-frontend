@@ -34,7 +34,6 @@ const App = () => {
     getChannels();
   }, []);
 
-  console.log(process.env.REACT_APP_API_KEY);
   return (
     <div>
       <GlobalStyle />
