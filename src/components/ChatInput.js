@@ -1,3 +1,7 @@
+// Imports from react
+import React, { useContext } from "react";
+import { DarkModeContext } from "../darkmode/darkModeContext";
+
 // Imports of icons
 import SendIcon from "@material-ui/icons/Send";
 
@@ -5,17 +9,34 @@ import SendIcon from "@material-ui/icons/Send";
 import styled from "styled-components";
 
 const ChatInput = () => {
+  const [darkMode] = useContext(DarkModeContext);
+
   return (
-    <Container>
-      <InputContainer>
-        <form>
-          <input type="text" placeholder="Message here..." />
-          <SendButton>
-            <SendIcon />
-          </SendButton>
-        </form>
-      </InputContainer>
-    </Container>
+    <React.Fragment>
+      {darkMode ? (
+        <Container>
+          <InputContainerDarkMode>
+            <form>
+              <input type="text" placeholder="Message here..." />
+              <SendButton>
+                <SendIcon />
+              </SendButton>
+            </form>
+          </InputContainerDarkMode>
+        </Container>
+      ) : (
+        <Container>
+          <InputContainer>
+            <form>
+              <input type="text" placeholder="Message here..." />
+              <SendButton>
+                <SendIcon />
+              </SendButton>
+            </form>
+          </InputContainer>
+        </Container>
+      )}
+    </React.Fragment>
   );
 };
 
@@ -37,6 +58,28 @@ const InputContainer = styled.div`
       flex: 1;
       border: none;
       font-size: 12px;
+    }
+    input:focus {
+      outline: none;
+    }
+  }
+`;
+
+const InputContainerDarkMode = styled.div`
+  border: 1px solid #8d8d8e;
+  border-radius: 5px;
+  form {
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px 0 10px;
+    input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      font-size: 12px;
+      color: white;
     }
     input:focus {
       outline: none;

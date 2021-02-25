@@ -27,7 +27,7 @@ const Chat = () => {
                 <StarBorderIcon />
               </ChannelName>
               <ChannelInfoDarkMode>
-                <p>Welcome messages for new members of our slack channel</p>
+                <p>Welcome messages from new members of our slack channel</p>
               </ChannelInfoDarkMode>
             </Channel>
             <ChannelDetailsDarkMode>
@@ -49,7 +49,7 @@ const Chat = () => {
                 <StarBorderIcon />
               </ChannelName>
               <ChannelInfo>
-                <p>Welcome messages for new members of our slack channel</p>
+                <p>Welcome messages from new members of our slack channel</p>
               </ChannelInfo>
             </Channel>
             <ChannelDetails>
