@@ -2,6 +2,10 @@
 import React, { useContext } from "react";
 import { DarkModeContext } from "../darkmode/darkModeContext";
 
+// Imports of components
+import ChatInput from "./ChatInput";
+import ChatMessage from "./ChatMessage";
+
 // Imports of icons
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
@@ -17,38 +21,46 @@ const Chat = () => {
       {darkMode ? (
         <ContainerDarkMode>
           <HeaderDarkMode>
-            <TextPart>
-              <Title>
+            <Channel>
+              <ChannelName>
                 <h3># Welcome</h3>
                 <StarBorderIcon />
-              </Title>
-              <DescriptionDarkMode>
-                <p>Welcome messages for new members of our slack channel</p>
-              </DescriptionDarkMode>
-            </TextPart>
-            <DetailsPartDarkMode>
+              </ChannelName>
+              <ChannelInfoDarkMode>
+                <p>Welcome messages from new members of our slack channel</p>
+              </ChannelInfoDarkMode>
+            </Channel>
+            <ChannelDetailsDarkMode>
               <h3>Details</h3>
               <InfoOutlinedIcon />
-            </DetailsPartDarkMode>
+            </ChannelDetailsDarkMode>
           </HeaderDarkMode>
+          <MessageContainer>
+            <ChatMessage />
+          </MessageContainer>
+          <ChatInput></ChatInput>
         </ContainerDarkMode>
       ) : (
         <Container>
           <Header>
-            <TextPart>
-              <Title>
+            <Channel>
+              <ChannelName>
                 <h3># Welcome</h3>
                 <StarBorderIcon />
-              </Title>
-              <Description>
-                <p>Welcome messages for new members of our slack channel</p>
-              </Description>
-            </TextPart>
-            <DetailsPart>
+              </ChannelName>
+              <ChannelInfo>
+                <p>Welcome messages from new members of our slack channel</p>
+              </ChannelInfo>
+            </Channel>
+            <ChannelDetails>
               <h3>Details</h3>
               <InfoOutlinedIcon />
-            </DetailsPart>
+            </ChannelDetails>
           </Header>
+          <MessageContainer>
+            <ChatMessage />
+          </MessageContainer>
+          <ChatInput />
         </Container>
       )}
     </React.Fragment>
@@ -57,43 +69,43 @@ const Chat = () => {
 
 // Styled components
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: 64px auto min-content;
 `;
 
 const ContainerDarkMode = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: 64px auto min-content;
   background: rgb(31, 31, 31);
   color: white;
 `;
 
 const Header = styled.div`
   width: 100%;
-  height: 76px;
   display: flex;
   justify-content: space-between;
-  padding: 5px 0 5px 10px;
+  align-items: center;
+  padding: 0 20px 0 20px;
   border-bottom: 1px solid rgb(235, 235, 235);
 `;
 
 const HeaderDarkMode = styled.div`
   width: 100%;
-  height: 76px;
   display: flex;
   justify-content: space-between;
-  padding: 5px 0 5px 10px;
+  align-items: center;
+  padding: 0 20px 0 20px;
   border-bottom: 1px solid rgb(87, 87, 87);
 `;
 
-const TextPart = styled.div`
+const Channel = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
 `;
 
-const Title = styled.div`
+const ChannelName = styled.div`
   display: flex;
   align-items: center;
   h3 {
@@ -101,34 +113,36 @@ const Title = styled.div`
   }
 `;
 
-const Description = styled.div`
-  color: rgb(97, 97, 97);
+const ChannelInfo = styled.div`
+  color: #606060;
 `;
 
-const DescriptionDarkMode = styled.div`
+const ChannelInfoDarkMode = styled.div`
   color: rgb(160, 160, 160);
 `;
 
-const DetailsPart = styled.div`
+const ChannelDetails = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
-  color: rgb(97, 97, 97);
-  margin: 0 10px 0 0;
+  color: #606060;
+  cursor: pointer;
   h3 {
     margin: 0 5px 0 0;
   }
 `;
 
-const DetailsPartDarkMode = styled.div`
+const ChannelDetailsDarkMode = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
   color: rgb(160, 160, 160);
-  margin: 0 10px 0 0;
+  cursor: pointer;
   h3 {
     margin: 0 5px 0 0;
   }
 `;
+
+const MessageContainer = styled.div``;
 
 export default Chat;

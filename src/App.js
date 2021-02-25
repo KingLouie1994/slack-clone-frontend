@@ -34,8 +34,6 @@ const App = () => {
     getChannels();
   }, []);
 
-  console.log(rooms);
-
   return (
     <div>
       <GlobalStyle />
