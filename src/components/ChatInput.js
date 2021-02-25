@@ -102,6 +102,8 @@ const InputContainer = styled.div`
     padding: 0 10px 0 10px;
     input {
       flex: 1;
+      background: transparent;
+
       border: none;
       font-size: 12px;
     }
@@ -140,20 +142,20 @@ const SendButton = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 2px;
-  background: #007a5a;
+  background: #350d36;
   cursor: pointer;
   .MuiSvgIcon-root {
-    color: #d9d9d9;
+    color: white;
   }
   :hover {
-    background: #148567;
+    background: #773697;
   }
 `;
 
 const TextSettings = styled.div`
   display: flex;
   align-items: center;
-  background: #faf0d4;
+  background: linear-gradient(to right, #ffffff, #f6ecfb);
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 `;
@@ -174,7 +176,7 @@ const Setting = styled.div`
   padding: 2px 2px;
   cursor: pointer;
   :hover {
-    background: #ffdf88;
+    background: #f6ecfb;
     border-radius: 5px;
   }
 `;
@@ -193,4 +195,3 @@ const SettingDarkMode = styled.div`
 `;
 
 export default ChatInput;
-
