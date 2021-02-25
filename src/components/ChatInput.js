@@ -7,6 +7,7 @@ import SendIcon from "@material-ui/icons/Send";
 import FormatBoldIcon from "@material-ui/icons/FormatBold";
 import FormatItalicIcon from "@material-ui/icons/FormatItalic";
 import FormatUnderlinedIcon from "@material-ui/icons/FormatUnderlined";
+import TextFieldsIcon from "@material-ui/icons/TextFields";
 import FormatColorTextIcon from "@material-ui/icons/FormatColorText";
 import FormatColorFillIcon from "@material-ui/icons/FormatColorFill";
 import EmojiEmotionsIcon from "@material-ui/icons/EmojiEmotions";
@@ -29,24 +30,31 @@ const ChatInput = () => {
               </SendButton>
             </form>
             <TextSettingsDarkMode>
-              <SettingDarkMode>
-                <FormatBoldIcon />
-              </SettingDarkMode>
-              <SettingDarkMode>
-                <FormatUnderlinedIcon />
-              </SettingDarkMode>
-              <SettingDarkMode>
-                <FormatItalicIcon />
-              </SettingDarkMode>
-              <SettingDarkMode>
-                <FormatColorTextIcon />
-              </SettingDarkMode>
-              <SettingDarkMode>
-                <FormatColorFillIcon />
-              </SettingDarkMode>
-              <SettingDarkMode>
-                <EmojiEmotionsIcon />
-              </SettingDarkMode>
+              <LeftSettings>
+                <SettingDarkMode>
+                  <FormatBoldIcon />
+                </SettingDarkMode>
+                <SettingDarkMode>
+                  <FormatUnderlinedIcon />
+                </SettingDarkMode>
+                <SettingDarkMode>
+                  <FormatItalicIcon />
+                </SettingDarkMode>
+              </LeftSettings>
+              <RightSettings>
+                <SettingDarkMode>
+                  <TextFieldsIcon />
+                </SettingDarkMode>
+                <SettingDarkMode>
+                  <FormatColorTextIcon />
+                </SettingDarkMode>
+                <SettingDarkMode>
+                  <FormatColorFillIcon />
+                </SettingDarkMode>
+                <SettingDarkMode>
+                  <EmojiEmotionsIcon />
+                </SettingDarkMode>
+              </RightSettings>
             </TextSettingsDarkMode>
           </InputContainerDarkMode>
         </Container>
@@ -60,24 +68,31 @@ const ChatInput = () => {
               </SendButton>
             </form>
             <TextSettings>
-              <Setting>
-                <FormatBoldIcon />
-              </Setting>
-              <Setting>
-                <FormatUnderlinedIcon />
-              </Setting>
-              <Setting>
-                <FormatItalicIcon />
-              </Setting>
-              <Setting>
-                <FormatColorTextIcon />
-              </Setting>
-              <Setting>
-                <FormatColorFillIcon />
-              </Setting>
-              <Setting>
-                <EmojiEmotionsIcon />
-              </Setting>
+              <LeftSettings>
+                <LeftSetting>
+                  <FormatBoldIcon />
+                </LeftSetting>
+                <LeftSetting>
+                  <FormatUnderlinedIcon />
+                </LeftSetting>
+                <LeftSetting>
+                  <FormatItalicIcon />
+                </LeftSetting>
+              </LeftSettings>
+              <RightSettings>
+                <RightSetting>
+                  <TextFieldsIcon />
+                </RightSetting>
+                <RightSetting>
+                  <FormatColorTextIcon />
+                </RightSetting>
+                <RightSetting>
+                  <FormatColorFillIcon />
+                </RightSetting>
+                <RightSetting>
+                  <EmojiEmotionsIcon />
+                </RightSetting>
+              </RightSettings>
             </TextSettings>
           </InputContainer>
         </Container>
@@ -154,6 +169,7 @@ const SendButton = styled.div`
 
 const TextSettings = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: center;
   background: linear-gradient(to right, #ffffff, #f6ecfb);
   border-bottom-left-radius: 5px;
@@ -162,13 +178,22 @@ const TextSettings = styled.div`
 
 const TextSettingsDarkMode = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: center;
   background: #414141;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 `;
 
-const Setting = styled.div`
+const LeftSettings = styled.div`
+  display: flex;
+`;
+
+const RightSettings = styled.div`
+  display: flex;
+`;
+
+const LeftSetting = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
@@ -177,6 +202,19 @@ const Setting = styled.div`
   cursor: pointer;
   :hover {
     background: #f6ecfb;
+    border-radius: 5px;
+  }
+`;
+
+const RightSetting = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin: 3px 10px;
+  padding: 2px 2px;
+  cursor: pointer;
+  :hover {
+    background: white;
     border-radius: 5px;
   }
 `;
