@@ -4,6 +4,13 @@ import { DarkModeContext } from "../darkmode/darkModeContext";
 
 // Imports of icons
 import SendIcon from "@material-ui/icons/Send";
+import FormatBoldIcon from "@material-ui/icons/FormatBold";
+import FormatItalicIcon from "@material-ui/icons/FormatItalic";
+import FormatUnderlinedIcon from "@material-ui/icons/FormatUnderlined";
+import TextFieldsIcon from "@material-ui/icons/TextFields";
+import FormatColorTextIcon from "@material-ui/icons/FormatColorText";
+import FormatColorFillIcon from "@material-ui/icons/FormatColorFill";
+import EmojiEmotionsIcon from "@material-ui/icons/EmojiEmotions";
 
 // Imports for styling
 import styled from "styled-components";
@@ -22,6 +29,33 @@ const ChatInput = () => {
                 <SendIcon />
               </SendButton>
             </form>
+            <TextSettingsDarkMode>
+              <LeftSettings>
+                <SettingDarkMode>
+                  <FormatBoldIcon />
+                </SettingDarkMode>
+                <SettingDarkMode>
+                  <FormatUnderlinedIcon />
+                </SettingDarkMode>
+                <SettingDarkMode>
+                  <FormatItalicIcon />
+                </SettingDarkMode>
+              </LeftSettings>
+              <RightSettings>
+                <SettingDarkMode>
+                  <TextFieldsIcon />
+                </SettingDarkMode>
+                <SettingDarkMode>
+                  <FormatColorTextIcon />
+                </SettingDarkMode>
+                <SettingDarkMode>
+                  <FormatColorFillIcon />
+                </SettingDarkMode>
+                <SettingDarkMode>
+                  <EmojiEmotionsIcon />
+                </SettingDarkMode>
+              </RightSettings>
+            </TextSettingsDarkMode>
           </InputContainerDarkMode>
         </Container>
       ) : (
@@ -33,6 +67,33 @@ const ChatInput = () => {
                 <SendIcon />
               </SendButton>
             </form>
+            <TextSettings>
+              <LeftSettings>
+                <LeftSetting>
+                  <FormatBoldIcon />
+                </LeftSetting>
+                <LeftSetting>
+                  <FormatUnderlinedIcon />
+                </LeftSetting>
+                <LeftSetting>
+                  <FormatItalicIcon />
+                </LeftSetting>
+              </LeftSettings>
+              <RightSettings>
+                <RightSetting>
+                  <TextFieldsIcon />
+                </RightSetting>
+                <RightSetting>
+                  <FormatColorTextIcon />
+                </RightSetting>
+                <RightSetting>
+                  <FormatColorFillIcon />
+                </RightSetting>
+                <RightSetting>
+                  <EmojiEmotionsIcon />
+                </RightSetting>
+              </RightSettings>
+            </TextSettings>
           </InputContainer>
         </Container>
       )}
@@ -56,6 +117,8 @@ const InputContainer = styled.div`
     padding: 0 10px 0 10px;
     input {
       flex: 1;
+      background: transparent;
+
       border: none;
       font-size: 12px;
     }
@@ -94,13 +157,78 @@ const SendButton = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 2px;
-  background: #007a5a;
+  background: #350d36;
   cursor: pointer;
   .MuiSvgIcon-root {
-    color: #d9d9d9;
+    color: white;
   }
   :hover {
-    background: #148567;
+    background: #773697;
+  }
+`;
+
+const TextSettings = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to right, #ffffff, #f6ecfb);
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+`;
+
+const TextSettingsDarkMode = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #414141;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+`;
+
+const LeftSettings = styled.div`
+  display: flex;
+`;
+
+const RightSettings = styled.div`
+  display: flex;
+`;
+
+const LeftSetting = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin: 3px 10px;
+  padding: 2px 2px;
+  cursor: pointer;
+  :hover {
+    background: #f6ecfb;
+    border-radius: 5px;
+  }
+`;
+
+const RightSetting = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin: 3px 10px;
+  padding: 2px 2px;
+  cursor: pointer;
+  :hover {
+    background: white;
+    border-radius: 5px;
+  }
+`;
+
+const SettingDarkMode = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin: 3px 10px;
+  padding: 2px 2px;
+  cursor: pointer;
+  :hover {
+    background: #6b6b6b;
+    border-radius: 5px;
   }
 `;
 

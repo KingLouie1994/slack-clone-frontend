@@ -71,12 +71,13 @@ const Chat = () => {
 const Container = styled.div`
   display: grid;
   grid-template-rows: 64px auto min-content;
+  background: linear-gradient(to right, #f6ecfb, #ffffff);
 `;
 
 const ContainerDarkMode = styled.div`
   display: grid;
   grid-template-rows: 64px auto min-content;
-  background: rgb(31, 31, 31);
+  background: linear-gradient(to right, rgb(54, 54, 54), #000000);
   color: white;
 `;
 

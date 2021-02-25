@@ -51,7 +51,7 @@ const Container = styled.div`
   align-items: center;
   padding: 8px 20px;
   :hover {
-    background: #ece9e9;
+    background: #f6ecfb;
     transition: 0.25s;
   }
 `;
@@ -61,7 +61,7 @@ const ContainerDarkMode = styled.div`
   align-items: center;
   padding: 8px 20px;
   :hover {
-    background: #2c2c2c;
+    background: #3f3f3f;
     transition: 0.25s;
   }
 `;
