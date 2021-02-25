@@ -4,6 +4,12 @@ import { DarkModeContext } from "../darkmode/darkModeContext";
 
 // Imports of icons
 import SendIcon from "@material-ui/icons/Send";
+import FormatBoldIcon from "@material-ui/icons/FormatBold";
+import FormatItalicIcon from "@material-ui/icons/FormatItalic";
+import FormatUnderlinedIcon from "@material-ui/icons/FormatUnderlined";
+import FormatColorTextIcon from "@material-ui/icons/FormatColorText";
+import FormatColorFillIcon from "@material-ui/icons/FormatColorFill";
+import EmojiEmotionsIcon from "@material-ui/icons/EmojiEmotions";
 
 // Imports for styling
 import styled from "styled-components";
@@ -22,6 +28,26 @@ const ChatInput = () => {
                 <SendIcon />
               </SendButton>
             </form>
+            <TextSettingsDarkMode>
+              <SettingDarkMode>
+                <FormatBoldIcon />
+              </SettingDarkMode>
+              <SettingDarkMode>
+                <FormatUnderlinedIcon />
+              </SettingDarkMode>
+              <SettingDarkMode>
+                <FormatItalicIcon />
+              </SettingDarkMode>
+              <SettingDarkMode>
+                <FormatColorTextIcon />
+              </SettingDarkMode>
+              <SettingDarkMode>
+                <FormatColorFillIcon />
+              </SettingDarkMode>
+              <SettingDarkMode>
+                <EmojiEmotionsIcon />
+              </SettingDarkMode>
+            </TextSettingsDarkMode>
           </InputContainerDarkMode>
         </Container>
       ) : (
@@ -33,6 +59,26 @@ const ChatInput = () => {
                 <SendIcon />
               </SendButton>
             </form>
+            <TextSettings>
+              <Setting>
+                <FormatBoldIcon />
+              </Setting>
+              <Setting>
+                <FormatUnderlinedIcon />
+              </Setting>
+              <Setting>
+                <FormatItalicIcon />
+              </Setting>
+              <Setting>
+                <FormatColorTextIcon />
+              </Setting>
+              <Setting>
+                <FormatColorFillIcon />
+              </Setting>
+              <Setting>
+                <EmojiEmotionsIcon />
+              </Setting>
+            </TextSettings>
           </InputContainer>
         </Container>
       )}
@@ -104,4 +150,47 @@ const SendButton = styled.div`
   }
 `;
 
+const TextSettings = styled.div`
+  display: flex;
+  align-items: center;
+  background: #faf0d4;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+`;
+
+const TextSettingsDarkMode = styled.div`
+  display: flex;
+  align-items: center;
+  background: #414141;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+`;
+
+const Setting = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin: 3px 10px;
+  padding: 2px 2px;
+  cursor: pointer;
+  :hover {
+    background: #ffdf88;
+    border-radius: 5px;
+  }
+`;
+
+const SettingDarkMode = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin: 3px 10px;
+  padding: 2px 2px;
+  cursor: pointer;
+  :hover {
+    background: #6b6b6b;
+    border-radius: 5px;
+  }
+`;
+
 export default ChatInput;
+
