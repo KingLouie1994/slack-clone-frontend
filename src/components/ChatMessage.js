@@ -12,31 +12,27 @@ const ChatMessage = ({ text, name, image, timestamp }) => {
       {darkMode ? (
         <ContainerDarkMode>
           <UserAvatar>
-            {image ? <img src={image} alt="profile" /> : null}
+            <img src={image} alt="profile" />
           </UserAvatar>
           <MessageContent>
             <NameDarkMode>
-              {name ? <p>{name}</p> : null}
-              {timestamp && (
-                <span>{new Date(timestamp.toDate()).toUTCString()}</span>
-              )}
+              <p>{name}</p>
+              <span>{new Date(timestamp.toDate()).toUTCString()}</span>
             </NameDarkMode>
-            {text ? <Text>{text}</Text> : null}
+            <Text>{text}</Text>
           </MessageContent>
         </ContainerDarkMode>
       ) : (
         <Container>
           <UserAvatar>
-            {image ? <img src={image} alt="profile" /> : null}
+            <img src={image} alt="profile" />
           </UserAvatar>
           <MessageContent>
             <Name>
-              {name ? <p>{name}</p> : null}
-              {timestamp && (
-                <span>{new Date(timestamp.toDate()).toUTCString()}</span>
-              )}
+              <p>{name}</p>
+              <span>{new Date(timestamp.toDate()).toUTCString()}</span>
             </Name>
-            {text ? <Text>{text}</Text> : null}
+            <Text>{text}</Text>
           </MessageContent>
         </Container>
       )}

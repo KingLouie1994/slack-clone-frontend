@@ -6,6 +6,7 @@ import { DarkModeContext } from "../darkmode/darkModeContext";
 import { useParams } from "react-router-dom";
 
 // Import from thirs party libraries
+import firebase from "firebase";
 import Loader from "react-loader-spinner";
 
 // Imports of components
@@ -22,7 +23,7 @@ import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 // Imports for styling
 import styled from "styled-components";
 
-const Chat = () => {
+const Chat = ({ user }) => {
   const [darkMode] = useContext(DarkModeContext);
 
   const [channel, setChannel] = useState();
@@ -47,6 +48,18 @@ const Chat = () => {
         let messages = snapshot.docs.map((doc) => doc.data());
         setMessages(messages);
       });
+  };
+
+  const sendMessage = (text) => {
+    if (id) {
+      let payload = {
+        text: text,
+        timestamp: firebase.firestore.Timestamp.now(),
+        user: user.name,
+        userImage: user.photo,
+      };
+      db.collection("rooms").doc(id).collection("messages").add(payload);
+    }
   };
 
   useEffect(() => {
@@ -108,7 +121,7 @@ const Chat = () => {
               />
             </LoaderContainer>
           )}
-          <ChatInput></ChatInput>
+          <ChatInput sendMessage={sendMessage} />
         </ContainerDarkMode>
       ) : (
         <Container>
@@ -157,7 +170,7 @@ const Chat = () => {
               <Loader type="ThreeDots" color="#3f0e40" height={30} width={30} />
             </LoaderContainer>
           )}
-          <ChatInput />
+          <ChatInput sendMessage={sendMessage} />
         </Container>
       )}
     </React.Fragment>

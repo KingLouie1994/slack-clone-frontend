@@ -1,5 +1,5 @@
 // Imports from react
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { DarkModeContext } from "../darkmode/darkModeContext";
 
 // Imports of icons
@@ -15,8 +15,17 @@ import EmojiEmotionsIcon from "@material-ui/icons/EmojiEmotions";
 // Imports for styling
 import styled from "styled-components";
 
-const ChatInput = () => {
+const ChatInput = ({ sendMessage }) => {
   const [darkMode] = useContext(DarkModeContext);
+
+  const [input, setInput] = useState("");
+
+  const send = (e) => {
+    e.preventDefault();
+    if (!input) return;
+    sendMessage(input);
+    setInput("");
+  };
 
   return (
     <React.Fragment>
@@ -24,8 +33,13 @@ const ChatInput = () => {
         <Container>
           <InputContainerDarkMode>
             <form>
-              <input type="text" placeholder="Message here..." />
-              <SendButton>
+              <input
+                onChange={(e) => setInput(e.target.value)}
+                type="text"
+                value={input}
+                placeholder="Message here..."
+              />
+              <SendButton type="submit" onClick={send}>
                 <SendIcon />
               </SendButton>
             </form>
@@ -62,8 +76,13 @@ const ChatInput = () => {
         <Container>
           <InputContainer>
             <form>
-              <input type="text" placeholder="Message here..." />
-              <SendButton>
+              <input
+                onChange={(e) => setInput(e.target.value)}
+                type="text"
+                value={input}
+                placeholder="Message here..."
+              />
+              <SendButton type="submit" onClick={send}>
                 <SendIcon />
               </SendButton>
             </form>
@@ -150,7 +169,7 @@ const InputContainerDarkMode = styled.div`
   }
 `;
 
-const SendButton = styled.div`
+const SendButton = styled.button`
   width: 32px;
   height: 32px;
   display: flex;

@@ -39,6 +39,7 @@ const App = () => {
       .signOut()
       .then(() => {
         localStorage.removeItem("user");
+        setUser(null);
       })
       .catch((err) => {
         console.log(err);
@@ -61,7 +62,7 @@ const App = () => {
             <Sidebar rooms={rooms} />
             <Switch>
               <Route path="/room/:id">
-                <Chat />
+                <Chat user={user} />
               </Route>
               <Route path="/" exact>
                 Select or create Channel
