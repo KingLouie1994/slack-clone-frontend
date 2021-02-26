@@ -4,6 +4,9 @@ import React from "react";
 // Imports from firebase
 import { auth, provider } from "../firebase";
 
+// Import of Project Icon
+import SlackIcon from "../data/Slack.png";
+
 // Imports for styling
 import styled from "styled-components";
 
@@ -27,7 +30,7 @@ const Login = ({ setUser }) => {
   return (
     <Container>
       <Content>
-        <SlackImage src="" alt="Slack Clone" />
+        <SlackImage src={SlackIcon} alt="Slack Clone" />
         <h1>Sign in Slack Clone</h1>
         <SignInButton onClick={() => signIn()}>
           Sign in with Google

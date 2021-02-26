@@ -122,7 +122,7 @@ const ChatInput = ({ sendMessage }) => {
 
 // Styled components
 const Container = styled.div`
-  padding: 0 20px 24px 20px;
+  padding: 24px 20px 24px 20px;
 `;
 
 const InputContainer = styled.div`

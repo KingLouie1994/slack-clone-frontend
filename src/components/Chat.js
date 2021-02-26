@@ -99,7 +99,7 @@ const Chat = ({ user }) => {
             )}
           </HeaderDarkMode>
           {messages ? (
-            <MessageContainer>
+            <MessageContainerDarkMode>
               {messages.map((msg) => (
                 <ChatMessage
                   key={msg.id}
@@ -109,7 +109,7 @@ const Chat = ({ user }) => {
                   timestamp={msg.timestamp}
                 />
               ))}
-            </MessageContainer>
+            </MessageContainerDarkMode>
           ) : (
             <LoaderContainer>
               <Loader
@@ -180,12 +180,14 @@ const Chat = ({ user }) => {
 const Container = styled.div`
   display: grid;
   grid-template-rows: 64px auto min-content;
+  min-height: 0;
   background: linear-gradient(to right, #f6ecfb, #ffffff);
 `;
 
 const ContainerDarkMode = styled.div`
   display: grid;
   grid-template-rows: 64px auto min-content;
+  min-height: 0;
   background: linear-gradient(to right, rgb(54, 54, 54), #000000);
   color: white;
 `;
@@ -253,7 +255,35 @@ const ChannelDetailsDarkMode = styled.div`
   }
 `;
 
-const MessageContainer = styled.div``;
+const MessageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #3f0e40;
+  }
+  &::-webkit-scrollbar-track {
+    background: white;
+  }
+`;
+
+const MessageContainerDarkMode = styled.div`
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: white;
+  }
+  &::-webkit-scrollbar-track {
+    background: black;
+  }
+`;
 
 const LoaderContainer = styled.div`
   width: 100%;
