@@ -22,7 +22,7 @@ import GlobalStyle from "./GlobalStyle";
 
 const App = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
-  const [rooms, setRooms] = useState([]);
+  const [rooms, setRooms] = useState();
 
   const getChannels = () => {
     db.collection("rooms").onSnapshot((snapshot) => {
