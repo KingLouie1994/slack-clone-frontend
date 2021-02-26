@@ -1,9 +1,11 @@
 // Imports from react
 import React, { useState, useEffect, useContext } from "react";
-import { DarkModeContext } from "../darkmode/darkModeContext";
 
 // Imports from react router dom
 import { useParams } from "react-router-dom";
+
+// Import of contexts
+import { DarkModeContext } from "../darkmode/darkModeContext";
 
 // Import from thirs party libraries
 import firebase from "firebase";
