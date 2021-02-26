@@ -31,25 +31,6 @@ const Chat = ({ user }) => {
 
   let { id } = useParams();
 
-  const getChannel = () => {
-    db.collection("rooms")
-      .doc(id)
-      .onSnapshot((snapshot) => {
-        setChannel(snapshot.data());
-      });
-  };
-
-  const getMessages = () => {
-    db.collection("rooms")
-      .doc(id)
-      .collection("messages")
-      .orderBy("timestamp", "asc")
-      .onSnapshot((snapshot) => {
-        let messages = snapshot.docs.map((doc) => doc.data());
-        setMessages(messages);
-      });
-  };
-
   const sendMessage = (text) => {
     if (id) {
       let payload = {
@@ -63,6 +44,24 @@ const Chat = ({ user }) => {
   };
 
   useEffect(() => {
+    const getChannel = () => {
+      db.collection("rooms")
+        .doc(id)
+        .onSnapshot((snapshot) => {
+          setChannel(snapshot.data());
+        });
+    };
+
+    const getMessages = () => {
+      db.collection("rooms")
+        .doc(id)
+        .collection("messages")
+        .orderBy("timestamp", "asc")
+        .onSnapshot((snapshot) => {
+          let messages = snapshot.docs.map((doc) => doc.data());
+          setMessages(messages);
+        });
+    };
     getChannel();
     getMessages();
   }, [id]);
