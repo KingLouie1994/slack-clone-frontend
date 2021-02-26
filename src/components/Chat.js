@@ -156,15 +156,17 @@ const Chat = ({ user }) => {
           </Header>
           {messages ? (
             <MessageContainer>
-              {messages.map((msg) => (
-                <ChatMessage
-                  key={msg.id}
-                  text={msg.text}
-                  name={msg.user}
-                  image={msg.userImage}
-                  timestamp={msg.timestamp}
-                />
-              ))}
+              <div>
+                {messages.map((msg) => (
+                  <ChatMessage
+                    key={msg.id}
+                    text={msg.text}
+                    name={msg.user}
+                    image={msg.userImage}
+                    timestamp={msg.timestamp}
+                  />
+                ))}
+              </div>
             </MessageContainer>
           ) : (
             <LoaderContainer>
@@ -259,7 +261,7 @@ const ChannelDetailsDarkMode = styled.div`
 
 const MessageContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   overflow-y: scroll;
   &::-webkit-scrollbar {
     width: 0.5rem;

@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 
 // Imports from react router dom
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 
 // Import of db
 import db from "./firebase";
@@ -68,6 +68,7 @@ const App = () => {
               <Route path="/" exact>
                 <Welcome />
               </Route>
+              <Redirect to="/" />
             </Switch>
           </Main>
         </Container>
