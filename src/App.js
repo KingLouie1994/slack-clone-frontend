@@ -14,6 +14,7 @@ import { auth } from "./firebase";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import Login from "./components/Login";
+import Welcome from "./components/Welcome";
 import Chat from "./components/Chat";
 
 // Imports for styling
@@ -65,7 +66,7 @@ const App = () => {
                 <Chat user={user} />
               </Route>
               <Route path="/" exact>
-                Select or create Channel
+                <Welcome />
               </Route>
             </Switch>
           </Main>
