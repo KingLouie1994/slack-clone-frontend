@@ -1,6 +1,12 @@
+// Imports from react router dom
+import { useHistory } from "react-router-dom";
+
 // Import data
 import db from "../firebase";
 import { sidebarItems } from "../data/SidebarData";
+
+// Import from thirs party libraries
+import Loader from "react-loader-spinner";
 
 // Imports of icons
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
@@ -10,12 +16,20 @@ import AddIcon from "@material-ui/icons/Add";
 import styled from "styled-components";
 
 const Sidebar = ({ rooms }) => {
+  const history = useHistory();
+
   const addChannel = () => {
     const promptName = prompt("Enter channel name");
     if (promptName) {
       db.collection("rooms").add({
         name: promptName,
       });
+    }
+  };
+
+  const goToChannel = (id) => {
+    if (id) {
+      history.push(`/room/${id}`);
     }
   };
 
@@ -40,11 +54,19 @@ const Sidebar = ({ rooms }) => {
           <div>Channels</div>
           <AddIcon />
         </NewChannelContainer>
-        <ChannelsList>
-          {rooms.map((room) => (
-            <Channel key={room.name}># {room.name}</Channel>
-          ))}
-        </ChannelsList>
+        {rooms ? (
+          <ChannelsList>
+            {rooms.map((room) => (
+              <Channel key={room.id} onClick={() => goToChannel(room.id)}>
+                # {room.name}
+              </Channel>
+            ))}
+          </ChannelsList>
+        ) : (
+          <LoaderContainer>
+            <Loader type="ThreeDots" color="rgb(188, 171, 188)" height={30} width={30} />
+          </LoaderContainer>
+        )}
       </ChannelsContainer>
     </Container>
   );
@@ -121,6 +143,14 @@ const Channel = styled.div`
   :hover {
     background: #350d36;
   }
+`;
+
+const LoaderContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
 `;
 
 export default Sidebar;

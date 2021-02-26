@@ -4,8 +4,11 @@ import { useState, useEffect } from "react";
 // Imports from react router dom
 import { Route, Switch } from "react-router-dom";
 
-// Import DB
+// Import of db
 import db from "./firebase";
+
+// Imports from firebase
+import { auth } from "./firebase";
 
 // Imports of components
 import Header from "./components/Header";
@@ -18,7 +21,8 @@ import styled from "styled-components";
 import GlobalStyle from "./GlobalStyle";
 
 const App = () => {
-  const [rooms, setRooms] = useState([]);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const [rooms, setRooms] = useState();
 
   const getChannels = () => {
     db.collection("rooms").onSnapshot((snapshot) => {
@@ -30,6 +34,18 @@ const App = () => {
     });
   };
 
+  const signOut = () => {
+    auth
+      .signOut()
+      .then(() => {
+        localStorage.removeItem("user");
+        setUser(null);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     getChannels();
   }, []);
@@ -37,20 +53,24 @@ const App = () => {
   return (
     <div>
       <GlobalStyle />
-      <Container>
-        <Header />
-        <Main>
-          <Sidebar rooms={rooms} />
-          <Switch>
-            <Route path="/" exact>
-              <Login />
-            </Route>
-            <Route path="/room" exact>
-              <Chat />
-            </Route>
-          </Switch>
-        </Main>
-      </Container>
+      {!user ? (
+        <Login setUser={setUser} />
+      ) : (
+        <Container>
+          <Header user={user} signOut={signOut} />
+          <Main>
+            <Sidebar rooms={rooms} />
+            <Switch>
+              <Route path="/room/:id">
+                <Chat user={user} />
+              </Route>
+              <Route path="/" exact>
+                Select or create Channel
+              </Route>
+            </Switch>
+          </Main>
+        </Container>
+      )}
     </div>
   );
 };
@@ -59,7 +79,7 @@ const Container = styled.div`
   width: 100vw;
   height: 100vh;
   display: grid;
-  grid-template-rows: 38px auto;
+  grid-template-rows: 38px minmax(0, 1fr);
 `;
 
 const Main = styled.div`

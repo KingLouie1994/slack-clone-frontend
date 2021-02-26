@@ -1,10 +1,20 @@
 // Imports from react
-import React, { useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { DarkModeContext } from "../darkmode/darkModeContext";
+
+// Imports from react router dom
+import { useParams } from "react-router-dom";
+
+// Import from thirs party libraries
+import firebase from "firebase";
+import Loader from "react-loader-spinner";
 
 // Imports of components
 import ChatInput from "./ChatInput";
 import ChatMessage from "./ChatMessage";
+
+// Import of db
+import db from "../firebase";
 
 // Imports of icons
 import StarBorderIcon from "@material-ui/icons/StarBorder";
@@ -13,54 +23,153 @@ import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 // Imports for styling
 import styled from "styled-components";
 
-const Chat = () => {
+const Chat = ({ user }) => {
   const [darkMode] = useContext(DarkModeContext);
+
+  const [channel, setChannel] = useState();
+  const [messages, setMessages] = useState();
+
+  let { id } = useParams();
+
+  const sendMessage = (text) => {
+    if (id) {
+      let payload = {
+        text: text,
+        timestamp: firebase.firestore.Timestamp.now(),
+        user: user.name,
+        userImage: user.photo,
+      };
+      db.collection("rooms").doc(id).collection("messages").add(payload);
+    }
+  };
+
+  useEffect(() => {
+    const getChannel = () => {
+      db.collection("rooms")
+        .doc(id)
+        .onSnapshot((snapshot) => {
+          setChannel(snapshot.data());
+        });
+    };
+
+    const getMessages = () => {
+      db.collection("rooms")
+        .doc(id)
+        .collection("messages")
+        .orderBy("timestamp", "asc")
+        .onSnapshot((snapshot) => {
+          let messages = snapshot.docs.map((doc) => doc.data());
+          setMessages(messages);
+        });
+    };
+    getChannel();
+    getMessages();
+  }, [id]);
 
   return (
     <React.Fragment>
       {darkMode ? (
         <ContainerDarkMode>
           <HeaderDarkMode>
-            <Channel>
-              <ChannelName>
-                <h3># Welcome</h3>
-                <StarBorderIcon />
-              </ChannelName>
-              <ChannelInfoDarkMode>
-                <p>Welcome messages from new members of our slack channel</p>
-              </ChannelInfoDarkMode>
-            </Channel>
-            <ChannelDetailsDarkMode>
-              <h3>Details</h3>
-              <InfoOutlinedIcon />
-            </ChannelDetailsDarkMode>
+            {channel ? (
+              <>
+                <Channel>
+                  <ChannelName>
+                    <h3># {channel.name}</h3>
+                    <StarBorderIcon />
+                  </ChannelName>
+                  <ChannelInfoDarkMode>
+                    <p>{channel.description}</p>
+                  </ChannelInfoDarkMode>
+                </Channel>
+                <ChannelDetailsDarkMode>
+                  <h3>Details</h3>
+                  <InfoOutlinedIcon />
+                </ChannelDetailsDarkMode>
+              </>
+            ) : (
+              <LoaderContainer>
+                <Loader
+                  type="ThreeDots"
+                  color="rgb(188, 171, 188)"
+                  height={30}
+                  width={30}
+                />
+              </LoaderContainer>
+            )}
           </HeaderDarkMode>
-          <MessageContainer>
-            <ChatMessage />
-          </MessageContainer>
-          <ChatInput></ChatInput>
+          {messages ? (
+            <MessageContainerDarkMode>
+              {messages.map((msg) => (
+                <ChatMessage
+                  key={msg.id}
+                  text={msg.text}
+                  name={msg.user}
+                  image={msg.userImage}
+                  timestamp={msg.timestamp}
+                />
+              ))}
+            </MessageContainerDarkMode>
+          ) : (
+            <LoaderContainer>
+              <Loader
+                type="ThreeDots"
+                color="rgb(188, 171, 188)"
+                height={30}
+                width={30}
+              />
+            </LoaderContainer>
+          )}
+          <ChatInput sendMessage={sendMessage} />
         </ContainerDarkMode>
       ) : (
         <Container>
           <Header>
-            <Channel>
-              <ChannelName>
-                <h3># Welcome</h3>
-                <StarBorderIcon />
-              </ChannelName>
-              <ChannelInfo>
-                <p>Welcome messages from new members of our slack channel</p>
-              </ChannelInfo>
-            </Channel>
-            <ChannelDetails>
-              <h3>Details</h3>
-              <InfoOutlinedIcon />
-            </ChannelDetails>
+            {channel ? (
+              <>
+                <Channel>
+                  <ChannelName>
+                    <h3># {channel.name}</h3>
+                    <StarBorderIcon />
+                  </ChannelName>
+                  <ChannelInfo>
+                    <p>{channel.description}</p>
+                  </ChannelInfo>
+                </Channel>
+                <ChannelDetails>
+                  <h3>Details</h3>
+                  <InfoOutlinedIcon />
+                </ChannelDetails>
+              </>
+            ) : (
+              <LoaderContainer>
+                <Loader
+                  type="ThreeDots"
+                  color="#3f0e40"
+                  height={30}
+                  width={30}
+                />
+              </LoaderContainer>
+            )}
           </Header>
-          <MessageContainer>
-            <ChatMessage />
-          </MessageContainer>
-          <ChatInput />
+          {messages ? (
+            <MessageContainer>
+              {messages.map((msg) => (
+                <ChatMessage
+                  key={msg.id}
+                  text={msg.text}
+                  name={msg.user}
+                  image={msg.userImage}
+                  timestamp={msg.timestamp}
+                />
+              ))}
+            </MessageContainer>
+          ) : (
+            <LoaderContainer>
+              <Loader type="ThreeDots" color="#3f0e40" height={30} width={30} />
+            </LoaderContainer>
+          )}
+          <ChatInput sendMessage={sendMessage} />
         </Container>
       )}
     </React.Fragment>
@@ -71,12 +180,14 @@ const Chat = () => {
 const Container = styled.div`
   display: grid;
   grid-template-rows: 64px auto min-content;
+  min-height: 0;
   background: linear-gradient(to right, #f6ecfb, #ffffff);
 `;
 
 const ContainerDarkMode = styled.div`
   display: grid;
   grid-template-rows: 64px auto min-content;
+  min-height: 0;
   background: linear-gradient(to right, rgb(54, 54, 54), #000000);
   color: white;
 `;
@@ -144,6 +255,42 @@ const ChannelDetailsDarkMode = styled.div`
   }
 `;
 
-const MessageContainer = styled.div``;
+const MessageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #3f0e40;
+  }
+  &::-webkit-scrollbar-track {
+    background: white;
+  }
+`;
+
+const MessageContainerDarkMode = styled.div`
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: white;
+  }
+  &::-webkit-scrollbar-track {
+    background: black;
+  }
+`;
+
+const LoaderContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 export default Chat;
