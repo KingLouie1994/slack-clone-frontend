@@ -36,7 +36,7 @@ const Sidebar = ({ rooms }) => {
   return (
     <Container>
       <WorkSpaceContainer>
-        <Name>Luis's Slack Clone</Name>
+        <Name>Luis Slack Clone</Name>
         <NewMessage>
           <AddCircleOutlineIcon />
         </NewMessage>
